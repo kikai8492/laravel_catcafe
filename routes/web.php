@@ -14,4 +14,5 @@ Route::get('/contact/complete',[ContactController::class, 'complete']) -> name('
 Route::get('/admin/blogs',[AdminBlogController::class, 'index'])->name('admin.blogs.index');
 Route::get('/admin/blogs/create',[AdminBlogController::class, 'create'])->name('admin.blogs.create');
 Route::post('/admin/blogs', [AdminBlogController::class, 'store']) ->name('admin.blogs.store');
-
+Route::get('/admin/blogs/{blogs}',[AdminBlogController::class, 'edit'])->name('admin.blogs.edit');
+Route::put('/admin/blogs/{blogs}',[AdminBlogController::class, 'update'])->name('admin.blogs.update');
