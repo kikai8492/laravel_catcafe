@@ -14,6 +14,7 @@
 
                 <div class="pt-4 px-6">
                     <!-- ▼▼▼▼エラーメッセージ▼▼▼▼　-->
+                    @if($errors)
                     <div class="mb-8 py-4 px-6 border border-red-300 bg-red-50 rounded">
                         <ul>
                             <li class="text-red-400">タイトルは、必ず指定してください。</li>
