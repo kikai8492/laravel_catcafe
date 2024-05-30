@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Admin\StoreBlogRequest;
 use App\Models\Blog;
 use App\Http\Requests\Admin\UpdateBlogRequest;
+use Illuminate\Support\Facades\Storage; 
 
 class AdminBlogController extends Controller
 {
@@ -44,8 +45,8 @@ class AdminBlogController extends Controller
 			$blog = Blog::findOrFail($id);
 			$updateData = $request->validated();
 
-			if($request->ha('image')) {
-				storage::disk('public')->delete($blog->image);
+			if($request->has('image')) {
+				Storage::disk('public')->delete($blog->image);
 				$updateData['image'] = $request->file('image')->store('blogs','public');
 		  }
 			$blog->update($updateData);
@@ -53,9 +54,13 @@ class AdminBlogController extends Controller
 			return to_route('admin.blogs.index')->with('success', 'ブログを更新しました');
 	  }
 
+		//ブログ削除
 		public function destroy(string $id)
 		{
-			$blog = Blog::destroy($id);
-			return view('admin.blogs.index', ['blog' => $blog]);
+			$blog = Blog::findOrFail($id);
+			$blog->delete();
+			Storage::disk('public')->delete($blog->image);
+			return to_route('admin.blogs.index')->with('success', 'ブログを削除しました');
+
 		}
 }
