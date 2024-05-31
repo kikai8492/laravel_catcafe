@@ -34,9 +34,8 @@ class AdminBlogController extends Controller
 			return to_route('admin.blogs.index') -> with('success','ブログを投稿しました');
 		}
 
-		public function edit(string $id)
+		public function edit(Blog $blog)
 		{
-			$blog = Blog::findOrFail($id);
 			return view('admin.blogs.edit', ['blog' => $blog]);
 		}
 
