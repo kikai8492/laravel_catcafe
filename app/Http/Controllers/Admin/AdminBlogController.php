@@ -9,6 +9,7 @@ use App\Models\Blog;
 use App\Http\Requests\Admin\UpdateBlogRequest;
 use Illuminate\Support\Facades\Storage; 
 use App\Models\Category;
+use App\Models\Cat;
 
 class AdminBlogController extends Controller
 {
@@ -38,7 +39,12 @@ class AdminBlogController extends Controller
 		public function edit(Blog $blog)
 		{
 			$categories = Category::all();
-			return view('admin.blogs.edit', ['blog' => $blog, 'categories' => $categories]);
+			$cats = Cat::all();
+			return view('admin.blogs.edit', [
+																				'blog' => $blog, 
+																				'categories' => $categories, 
+																				'cats' => $cats
+																			]);
 		}
 
 		public function update(UpdateBlogRequest $request, string $id)
@@ -52,6 +58,7 @@ class AdminBlogController extends Controller
 		  }
 			$blog->category()->associate($updateData['category_id']);
 			$blog->update($updateData);
+			$blog->cats()->sync($updateData['cats'] ?? []);
 
 			return to_route('admin.blogs.index')->with('success', 'ブログを更新しました');
 	  }
