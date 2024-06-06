@@ -21,3 +21,4 @@ Route::delete('/admin/blogs/{blog}',[AdminBlogController::class, 'destroy'])->na
 
 //ユーザー管理
 Route::get('/admin/users/create',[UserController::class, 'create'])->name('admin.users.create');
+Route::post('/admin/users', [UserController::class, 'store'])->name('admin.users.store');
