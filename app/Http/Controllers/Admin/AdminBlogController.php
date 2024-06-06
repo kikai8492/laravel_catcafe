@@ -42,7 +42,9 @@ class AdminBlogController extends Controller
 		{
 			$categories = Category::all();
 			$cats = Cat::all();
+			$user = Auth::user();
 			return view('admin.blogs.edit', [
+																				'user' => $user,
 																				'blog' => $blog, 
 																				'categories' => $categories, 
 																				'cats' => $cats
